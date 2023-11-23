@@ -1,10 +1,10 @@
 import React from 'react';
-import './footer.css';
+import classes from './footer.module.css';
 import Tabs from '../Tabs';
 
 function Footer() {
   return (
-    <footer className="footer">
+    <footer className={classes.footer}>
       <span className="todo-count">
         doneCount
         {' '}
