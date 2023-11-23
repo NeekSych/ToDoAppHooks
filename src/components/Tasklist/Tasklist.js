@@ -1,14 +1,22 @@
 import React from 'react';
 import Task from '../Task/Task';
 import './Tasklist.css';
-// import { ToDoContext } from '../Context';
 
-function Tasklist() {
-  // const { toDoItems } = useContext(ToDoContext);
-  // const elements = toDoItems.map((e)=>)
+function Tasklist({ tasksList, remove }) {
+  const elements = tasksList.map((e) => {
+    const { id } = e;
+    return (
+      <li
+        key={id}
+        className="todo-list-item"
+      >
+        <Task values={e} remove={remove} />
+      </li>
+    );
+  });
   return (
     <ul className="todo-list">
-      <Task />
+      {tasksList.length !== 0 ? elements : <li className="list__empty">Tasks not found</li>}
     </ul>
 
   );

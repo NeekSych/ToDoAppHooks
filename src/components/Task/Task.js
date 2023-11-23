@@ -1,45 +1,49 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { useState } from 'react';
+import React from 'react';
 import './Task.css';
 
-function Task() {
+function Task({ values, remove }) {
   // const [taskName, setTaskName] = useState('');
   return (
-    <li>
-      <div className="view">
-        <input
-          className="toggle"
-          type="checkbox"
+
+    <div className="view">
+      <input
+        className="toggle"
+        type="checkbox"
+      />
+      <label
+        className="label"
+      >
+        <span className="title">{values.label}</span>
+        <span className="description">
+          <button
+            type="button"
+            className="icon icon-play"
+          />
+          <button
+            type="button"
+            className="icon icon-pause"
+          />
+          12:25
+        </span>
+        <span className="description">created 17 seconds ago</span>
+
+        <button
+          type="button"
+          className="icon icon-edit"
         />
-        <label
-          className="label"
-        >
-          <span className="title">fw</span>
-          <span className="description">
-            <button
-              type="button"
-              className="icon icon-play"
-            />
-            <button
-              type="button"
-              className="icon icon-pause"
-            />
-            12:25
-          </span>
-          <span className="description">created 17 seconds ago</span>
+        <button
+          type="button"
+          className="icon icon-destroy"
+          onClick={() => {
+            console.log('values.id');
+            remove(values.id);
+          }}
+        />
 
-          <button
-            type="button"
-            className="icon icon-edit"
-          />
-          <button
-            type="button"
-            className="icon icon-destroy"
-          />
+      </label>
+    </div>
 
-        </label>
-      </div>
-    </li>
   );
 }
 
