@@ -4,10 +4,22 @@ import Tabs from '../Tabs';
 
 function Footer() {
   return (
-    <div>
-      footer
+    <footer className="footer">
+      <span className="todo-count">
+        doneCount
+        {' '}
+        items left
+      </span>
       <Tabs />
-    </div>
+      <button
+        type="button"
+        className="clear-completed"
+        // onClick={deleteCompleted}
+      >
+        Clear completed
+
+      </button>
+    </footer>
   );
 }
 
