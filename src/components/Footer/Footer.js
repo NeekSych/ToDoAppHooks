@@ -1,9 +1,13 @@
 import React from 'react';
 import './footer.css';
+import Tabs from '../Tabs';
 
 function Footer() {
   return (
-    <div>footer</div>
+    <div>
+      footer
+      <Tabs />
+    </div>
   );
 }
 

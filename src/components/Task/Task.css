@@ -1,0 +1,14 @@
+.description--completed{
+    cursor: pointer;
+    word-break: break-all;
+    display: block;
+    line-height: 1.2;
+    transition: color 0.4s;
+    font-weight: 400;
+    color: #cdcdcd;   
+    text-decoration: line-through;
+};
+.timer-button{outline: 1px solid red;
+    padding-left: 10px;
+    display:none;
+}
