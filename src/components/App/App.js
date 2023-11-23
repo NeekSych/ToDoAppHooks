@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import classes from './App.module.css';
 import Footer from '../Footer';
@@ -7,7 +7,7 @@ import Input from '../Input';
 
 function App() {
   const [tasksList, setTasksList] = useState([]);
-  const [filteredTasks, setFilteredTasks] = useState('');
+  const [filteredTasks] = useState('');
   function getFilteredTasks() {
     if (filteredTasks) {
       return filteredTasks;
