@@ -2,7 +2,7 @@
 import React from 'react';
 import './Task.css';
 
-function Task({ values, remove }) {
+function Task({ values, remove, taskDone }) {
   // const [taskName, setTaskName] = useState('');
   return (
 
@@ -10,6 +10,7 @@ function Task({ values, remove }) {
       <input
         className="toggle"
         type="checkbox"
+        onClick={() => taskDone()}
       />
       <label
         className="label"

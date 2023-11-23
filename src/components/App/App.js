@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import classes from './App.module.css';
 import Footer from '../Footer';
@@ -7,7 +7,13 @@ import Input from '../Input';
 
 function App() {
   const [tasksList, setTasksList] = useState([]);
-
+  const [filteredTasks, setFilteredTasks] = useState('');
+  function getFilteredTasks() {
+    if (filteredTasks) {
+      return filteredTasks;
+    }
+    return tasksList;
+  }
   const addNewTask = (value, minutes, seconds) => {
     const newTask = {
       label: value,
@@ -18,12 +24,23 @@ function App() {
       createDate: Date.now(),
       elapsedTime: (+minutes * 60) + (+seconds),
     };
-    setTasksList([...tasksList, newTask]);
+    setTasksList([newTask, ...tasksList]);
   };
 
   const removeTask = (id) => {
-    setTasksList(tasksList.filter((e) => e.id !== id));
+    setTasksList(tasksList.filter((e) => e.id === id));
   };
+
+  const removeCompleted = () => {
+    setTasksList(tasksList.filter((e) => !e.done));
+  };
+  const taskDone = (id) => {
+    setTasksList(tasksList.map((elem) => (elem.id === id
+      ? { ...elem, done: !elem.done, elapsedTime: 0 }
+      : elem)));
+  };
+  //   const filteredTasksktasksList]);
+  const doneCount = tasksList.filter((e) => !e.done).length;
   return (
     <div className={classes.todoapp}>
       <header className="header">
@@ -32,10 +49,14 @@ function App() {
       </header>
       <section className={classes.main}>
         <Tasklist
+          taskDone={taskDone}
           remove={removeTask}
-          tasksList={tasksList}
+          tasksList={getFilteredTasks()}
         />
-        <Footer />
+        <Footer
+          doneCount={doneCount}
+          removeCompleted={removeCompleted}
+        />
       </section>
     </div>
   );

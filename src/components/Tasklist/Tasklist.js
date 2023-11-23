@@ -2,15 +2,20 @@ import React from 'react';
 import Task from '../Task/Task';
 import './Tasklist.css';
 
-function Tasklist({ tasksList, remove }) {
+function Tasklist({ tasksList, remove, taskDone }) {
   const elements = tasksList.map((e) => {
     const { id } = e;
+    console.log(e);
     return (
       <li
         key={id}
-        className="todo-list-item"
+        className={e.done ? 'completed' : ''}
       >
-        <Task values={e} remove={remove} />
+        <Task
+          values={e}
+          remove={remove}
+          taskDone={taskDone}
+        />
       </li>
     );
   });
