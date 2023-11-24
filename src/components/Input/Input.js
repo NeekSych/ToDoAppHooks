@@ -26,10 +26,10 @@ function Input({ addNewTask }) {
       className="input-form"
       onSubmit={(e) => {
         e.preventDefault();
-        addNewTask(taskValue, minValue, secValue);
-        console.log(secValue);
-        console.log(minValue);
-        clearValue();
+        if (taskValue.trim() !== '') {
+          addNewTask(taskValue, minValue, secValue);
+          clearValue();
+        } else alert('task name is empty!');
       }}
     >
       <input
