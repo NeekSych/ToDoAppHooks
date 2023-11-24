@@ -7,13 +7,8 @@ import Input from '../Input';
 
 function App() {
   const [tasksList, setTasksList] = useState([]);
-  const [filteredTasks] = useState('');
-  function getFilteredTasks() {
-    if (filteredTasks) {
-      return filteredTasks;
-    }
-    return tasksList;
-  }
+  const [filter, setFilter] = useState('All');
+
   const addNewTask = (value, minutes, seconds) => {
     const newTask = {
       label: value,
@@ -39,7 +34,16 @@ function App() {
       ? { ...elem, done: !elem.done, elapsedTime: 0 }
       : elem)));
   };
-  //   const filteredTasksktasksList]);
+  const filterList = (someFilter) => {
+    setFilter(someFilter);
+  };
+  const filteredTasks = tasksList.filter((elem) => {
+    if (filter === 'All') return true;
+    if (filter === 'Active') return !elem.done;
+    if (filter === 'Completed') return elem.done;
+    return true;
+  });
+
   const doneCount = tasksList.filter((e) => !e.done).length;
   return (
     <div className={classes.todoapp}>
@@ -51,9 +55,10 @@ function App() {
         <Tasklist
           taskDone={taskDone}
           remove={removeTask}
-          tasksList={getFilteredTasks()}
+          tasksList={filteredTasks}
         />
         <Footer
+          filterList={filterList}
           doneCount={doneCount}
           removeCompleted={removeCompleted}
         />

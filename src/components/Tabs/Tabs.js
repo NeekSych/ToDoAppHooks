@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Tabs.css';
 
-function Tabs() {
+function Tabs({ filterList }) {
+  const [selectFilter, setSelectFilter] = useState('All');
   return (
     <ul className="filters">
       <li>
         <button
           type="button"
-          className="select"
-          // onClick={() => { filterItems('all'); }}
+          className={selectFilter === 'All' ? 'select' : ''}
+          onClick={() => {
+            setSelectFilter('All');
+            filterList('All');
+          }}
         >
           All
 
@@ -17,8 +21,11 @@ function Tabs() {
       <li>
         <button
           type="button"
-          className=""
-          // onClick={() => { filterItems('active'); }}
+          className={selectFilter === 'Active' ? 'select' : ''}
+          onClick={() => {
+            setSelectFilter('Active');
+            filterList('Active');
+          }}
         >
           Active
 
@@ -27,8 +34,11 @@ function Tabs() {
       <li>
         <button
           type="button"
-          className=""
-          // onClick={() => { filterItems('completed'); }}
+          className={selectFilter === 'Completed' ? 'select' : ''}
+          onClick={() => {
+            setSelectFilter('Completed');
+            filterList('Completed');
+          }}
         >
           Completed
 

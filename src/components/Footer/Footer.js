@@ -2,14 +2,16 @@ import React from 'react';
 import classes from './footer.module.css';
 import Tabs from '../Tabs';
 
-function Footer({ removeCompleted, doneCount }) {
+function Footer({ removeCompleted, doneCount, filterList }) {
   return (
     <footer className={classes.footer}>
       <span className="todo-count">
         {doneCount}
         items left
       </span>
-      <Tabs />
+      <Tabs
+        filterList={filterList}
+      />
       <button
         type="button"
         className="clear-completed"
