@@ -27,6 +27,8 @@ function Input({ addNewTask }) {
       onSubmit={(e) => {
         e.preventDefault();
         addNewTask(taskValue, minValue, secValue);
+        console.log(secValue);
+        console.log(minValue);
         clearValue();
       }}
     >

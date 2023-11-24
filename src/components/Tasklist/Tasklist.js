@@ -8,6 +8,7 @@ function Tasklist({
   const elements = tasksList.map((e) => (
 
     <Task
+      key={e.id}
       values={e}
       remove={remove}
       taskDone={taskDone}

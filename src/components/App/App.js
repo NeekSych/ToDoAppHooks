@@ -15,7 +15,7 @@ function App() {
       done: false,
       timerId: null,
       id: uuidv4(),
-      timerRunning: true,
+      timerRunning: false,
       createDate: Date.now(),
       elapsedTime: (+minutes * 60) + (+seconds),
     };

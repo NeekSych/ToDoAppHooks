@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import './Task.css';
 
 function Task({
@@ -7,11 +8,16 @@ function Task({
 }) {
   const [editValue, setEditValue] = useState(values.label);
   const [editing, setEditing] = useState(false);
+  const [time, setTime] = useState(values.elapsedTime);
+  const [isRunning, setIsRunning] = useState(values.timerRunning);
+  const timeInWords = formatDistanceToNow(values.createDate, { includeSeconds: true });
+
   const onSubmit = (e) => {
     e.preventDefault();
     editTask(values.id, e.target.value);
     setEditing(false);
   };
+
   const classname = () => {
     if (editing) {
       return 'editing';
@@ -20,6 +26,26 @@ function Task({
       return 'completed';
     }
     return '';
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (isRunning) {
+        setTime(time > 0 ? time - 1 : 0);
+      }
+    }, 1000);
+
+    if (time === 0 && isRunning === true) {
+      setIsRunning(false);
+      taskDone(values.id);
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [time, isRunning]);
+
+  const timerToggle = () => {
+    setIsRunning(!isRunning);
   };
   return (
     <li
@@ -40,14 +66,23 @@ function Task({
             <button
               type="button"
               className="icon icon-play"
+              onClick={() => timerToggle()}
             />
             <button
               type="button"
               className="icon icon-pause"
+              onClick={() => timerToggle()}
             />
-            12:25
+            {`${Math.floor(time / 60)}:${String(time % 60).padStart(2, '0')}`}
           </span>
-          <span className="description">created 17 seconds ago</span>
+          <span className="description">
+            created
+            {' '}
+            {timeInWords}
+            {' '}
+            ago
+            {' '}
+          </span>
 
           <button
             type="button"
