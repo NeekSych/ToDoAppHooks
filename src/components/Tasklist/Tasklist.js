@@ -2,13 +2,16 @@ import React from 'react';
 import Task from '../Task/Task';
 import './Tasklist.css';
 
-function Tasklist({ tasksList, remove, taskDone }) {
+function Tasklist({
+  tasksList, remove, taskDone, editTask,
+}) {
   const elements = tasksList.map((e) => (
 
     <Task
       values={e}
       remove={remove}
       taskDone={taskDone}
+      editTask={editTask}
     />
 
   ));

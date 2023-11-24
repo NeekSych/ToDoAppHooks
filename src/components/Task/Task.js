@@ -1,12 +1,30 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React from 'react';
+import React, { useState } from 'react';
 import './Task.css';
 
-function Task({ values, remove, taskDone }) {
+function Task({
+  values, remove, taskDone, editTask,
+}) {
+  const [editValue, setEditValue] = useState(values.label);
+  const [editing, setEditing] = useState(false);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    editTask(values.id, e.target.value);
+    setEditing(false);
+  };
+  const classname = () => {
+    if (editing) {
+      return 'editing';
+    }
+    if (values.done) {
+      return 'completed';
+    }
+    return '';
+  };
   return (
     <li
       key={values.id}
-      className={values.done ? 'completed' : ''}
+      className={classname()}
     >
       <div className="view">
         <input
@@ -34,18 +52,25 @@ function Task({ values, remove, taskDone }) {
           <button
             type="button"
             className="icon icon-edit"
+            onClick={() => setEditing(true)}
           />
           <button
             type="button"
             className="icon icon-destroy"
             onClick={() => {
-              console.log('values.id');
               remove(values.id);
             }}
           />
 
         </label>
       </div>
+      <input
+        type="text"
+        className="edit"
+        value={editValue}
+        onKeyDown={(e) => (e.key === 'Enter' ? onSubmit(e) : null)}
+        onChange={(e) => setEditValue(e.target.value)}
+      />
     </li>
   );
 }

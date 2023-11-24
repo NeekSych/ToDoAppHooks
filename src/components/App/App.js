@@ -23,7 +23,7 @@ function App() {
   };
 
   const removeTask = (id) => {
-    setTasksList(tasksList.filter((e) => e.id === id));
+    setTasksList(tasksList.filter((e) => e.id !== id));
   };
 
   const removeCompleted = () => {
@@ -44,6 +44,12 @@ function App() {
     return true;
   });
 
+  const editTask = (id, text) => {
+    setTasksList(tasksList.map((elem) => (elem.id === id
+      ? { ...elem, label: text }
+      : elem)));
+  };
+
   const doneCount = tasksList.filter((e) => !e.done).length;
   return (
     <div className={classes.todoapp}>
@@ -53,6 +59,7 @@ function App() {
       </header>
       <section className={classes.main}>
         <Tasklist
+          editTask={editTask}
           taskDone={taskDone}
           remove={removeTask}
           tasksList={filteredTasks}

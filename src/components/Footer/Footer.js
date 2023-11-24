@@ -6,7 +6,7 @@ function Footer({ removeCompleted, doneCount, filterList }) {
   return (
     <footer className={classes.footer}>
       <span className="todo-count">
-        {doneCount}
+        {`${doneCount} `}
         items left
       </span>
       <Tabs
