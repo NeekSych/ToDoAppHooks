@@ -30,7 +30,7 @@ function Task({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (isRunning) {
+      if (isRunning && !values.done) {
         setTime(time > 0 ? time - 1 : 0);
       }
     }, 1000);
@@ -42,10 +42,13 @@ function Task({
     return () => {
       clearInterval(interval);
     };
-  }, [time, isRunning]);
+  }, [time, isRunning, !values.done]);
 
-  const timerToggle = () => {
-    setIsRunning(!isRunning);
+  const startTimer = () => {
+    setIsRunning(true);
+  };
+  const stopTimer = () => {
+    setIsRunning(false);
   };
   return (
     <li
@@ -66,12 +69,12 @@ function Task({
             <button
               type="button"
               className="icon icon-play"
-              onClick={() => timerToggle()}
+              onClick={() => startTimer()}
             />
             <button
               type="button"
               className="icon icon-pause"
-              onClick={() => timerToggle()}
+              onClick={() => stopTimer()}
             />
             {`${Math.floor(time / 60)}:${String(time % 60).padStart(2, '0')}`}
           </span>
